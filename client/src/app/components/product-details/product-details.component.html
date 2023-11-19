@@ -1,0 +1,34 @@
+<div>
+  <div *ngIf=" currentProduct.id">
+    <img src="{{currentProduct.image}}" class="card-img-top" alt="{{currentProduct.name}}" height="250"
+      style="object-fit: contain;" />
+    <p>
+      {{ currentProduct.description }}
+    </p>
+
+    <div class="mt-2">
+      <strong class="mr-2">Price:</strong>
+      <span>{{ currentProduct.price }}</span>
+    </div>
+
+    <div class="mt-2">
+      <strong class="mr-2">Quantity:</strong>
+      <span>{{ currentProduct.qty }}</span>
+    </div>
+
+
+    <div class="mt-2">
+      <strong class="mr-2">Category:</strong>
+      <span>{{ currentProduct.category }}</span>
+    </div>
+
+    <!-- <a class="badge badge-warning" routerLink="/products/{{ currentProduct.id }}">
+      Edit
+    </a> -->
+  </div>
+
+  <div *ngIf="!currentProduct">
+    <br />
+    <p>Please click on a Product...</p>
+  </div>
+</div>

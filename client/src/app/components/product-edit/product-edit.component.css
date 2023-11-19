@@ -1,0 +1,32 @@
+.edit-form-container {
+  max-width: 500px;
+}
+
+.edit-form-container h1 {
+  font-size: 48px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.edit-form {
+  margin: 40px auto;
+  border: 1px solid var(--green-400);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.form-control {
+  margin-top: 8px;
+}
+.image-container {
+  width: 100%;
+  height: 250px;
+}
+
+.so-toast {
+  position: fixed !important;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+}

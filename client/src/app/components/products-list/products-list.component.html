@@ -1,0 +1,46 @@
+<section class="shopping-page-container">
+  <div class="container">
+    <div class="input-group input-group-lg mb-3 search-bar">
+      <input type="text" class="form-control" placeholder="Search by name" [(ngModel)]="name" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="searchName()">
+          Search
+        </button>
+      </div>
+    </div>
+    <ul class="product-list">
+      <li class="card text-center product" *ngFor="let product of products; let i = index"
+        [class.active]="i == currentIndex">
+        <img src="{{product.image}}" class="card-img-top" alt="{{product.name}}" height="250"
+          style="object-fit: contain;" />
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <a class="btn-nav btn-nav-primary" (click)="setActiveProduct(product, i)">Shop Now</a>
+          <a type="button" class="btn btn-warning btn-block mt-2" routerLink="/products/{{ product.id }}">Edit</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade show so-modal" tabindex="-1" style="display: block;" *ngIf="showProductDetail">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{currentProduct.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          (click)="toggleDetailedProductView()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-product-details [viewMode]="true" [currentProduct]="currentProduct"></app-product-details>
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-nav-primary" disabled>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>

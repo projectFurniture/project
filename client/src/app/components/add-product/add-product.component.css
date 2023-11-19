@@ -1,0 +1,35 @@
+.add-products {
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.add-products h1 {
+  font-size: 48px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.submit-form {
+  max-width: 500px;
+  margin: auto;
+  margin-top: 40px;
+}
+.btn {
+  width: 100%;
+}
+@media (min-width: 769px) {
+  .submit-form {
+    border: 1px solid var(--green-400);
+    padding: 20px;
+    border-radius: 12px;
+  }
+}
+
+.form-control {
+  margin-top: 8px;
+}
+
+.image-container {
+  width: 100%;
+  height: 250px;
+}
