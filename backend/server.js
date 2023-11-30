@@ -26,11 +26,18 @@ db.mongoose
 
 const corsOptions = {
   origin: [
-    "http://localhost:3000",
-    "https://simply-organic-frontend.onrender.com",
+    "http://localhost:3000"
+    //,"https://simply-organic-frontend.onrender.com",
   ],
 };
 
+//new code - This header allows requests from any domain. 
+//           If you want to allow requests from a specific domain, you can replace the asterisk with the domain name 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+//new code ends
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
