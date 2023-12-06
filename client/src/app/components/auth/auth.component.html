@@ -4,7 +4,7 @@
         <img src="assets/images/furniture-store.jpg" alt="image of furniture store" />
     </picture>
     <article class="hero-content">
-        <h1>{{isLoginPage ? 'Login': 'Sign Up'}} to Simply Organic</h1>
+        <h1>{{isLoginPage ? 'Login': 'Sign Up'}} to Furniture Store</h1>
         <form class="mt-4" #authForm="ngForm" (submit)="onSubmit(authForm)">
             <div class="mb-2" *ngIf="!isLoginPage">
                 <label for="username" class="form-label">Username</label>
@@ -27,7 +27,7 @@
                 <input type="password" class="form-control mt-2" id="password" name="password" ngModel minlength="6"
                     required #password="ngModel" />
                 <div class="invalid-feedback d-block" [ngClass]="{ 'invisible': password.valid || !password.touched}">
-                    {{isLoginPage ? 'Invalid password!': 'Invalid password! Must have a minimum of 6 charcters!'}}
+                    {{isLoginPage ? 'Invalid password!': 'Invalid password! Must have a minimum of 6 characters!'}}
                 </div>
             </div>
             <button class="btn-nav btn-nav-primary" [ngClass]="{'disabled': !authForm.valid}">{{isLoginPage ? ' Login':

@@ -19,7 +19,7 @@ export class ProductDetailedViewComponent {
   }
 
   onAddToCartBtnClick(product: Product) {
-    product.qty = 1;
+    //product.qty=1;
     this.showToastMsg = true;
     setTimeout(() => {
       this.cartService.addCartItem(product);
