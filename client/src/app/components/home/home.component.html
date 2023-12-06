@@ -1,4 +1,4 @@
-<section class="hero">
+<section class="hero" *ngIf="!isAuthenticated">
     <div class="container hero-container">
         <article class="hero-content">
             <h1>Furniture Store</h1>
@@ -6,24 +6,25 @@
                 modern,
                 classic, and the best products at unbeatable prices. Don’t miss out on festive deals and
                 fabulous finds,
-                handpicked just for you.
+                chosen just for you.
             </p>
             <a class="btn-nav btn-nav-primary">Sign Up</a>
         </article>
         <picture class="hero-img">
             <!-- <img src="/assets/hero.png" alt="hero image of grocery list"> -->
-            <img src="/assets/hero.jpg" alt="hero image of grocery list">
+            <img src="/assets/hero.jpg" alt="hero image of furniture list">
         </picture>
     </div>
 </section>
-<section class="cta">
+<section class="cta" *ngIf="!isAuthenticated">
     <div class="container">
         <h2>
             Ready to start shopping? Explore our magnificent world of furniture now!
         </h2>
         <div class="so-btn-grp">
             <a routerLink="shop" class="btn-nav btn-nav-secondary">Shop Now</a>
-            <a class="btn-nav btn-nav-primary ">Sign Up</a>
+            <a class="btn-nav btn-nav-primary" routerLink="sign-up" *ngIf="!isAuthenticated">Sign Up</a>
         </div>
     </div>
 </section>
+<app-dashboard *ngIf="isAuthenticated"></app-dashboard>

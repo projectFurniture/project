@@ -8,6 +8,8 @@ const db = {};
 
 db.mongoose = mongoose;
 
+db.refreshToken = require("./refreshToken.model");
+
 db.url = dbConfig.url;
 
 db.products = require("./product.model.js")(mongoose);

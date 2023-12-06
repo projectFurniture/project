@@ -1,0 +1,58 @@
+<section class="container cart-container">
+    <header class="d-flex justify-content-between mt-5 cart-header">
+        <h1>Your Cart</h1>
+        <button class="btn-nav btn-nav-primary" (click)="onCheckOutBtnClick()" [disabled]="isCartEmpty">Proceed to
+            Checkout</button>
+    </header>
+    <div class="d-flex justify-content-between align-items-start flex-wrap mt-5 cart-content mb-5">
+        <div class="empty-cart-info" *ngIf="isCartEmpty">
+            <p>Cart is empty, add item!</p>
+            <a routerLink="/shop" class="btn-nav btn-nav-primary mt-3">Start Shopping</a>
+        </div>
+        <ul class="product-list" *ngIf="!isCartEmpty">
+            <li class="product" *ngFor="let product of productList;">
+                <div class="product-details">
+                    <img src="{{product.image}}" alt="" />
+                    <div class="product-info">
+                        <h3>{{product.name}}</h3>
+                        <h4>{{product.category}}</h4>
+                        <span class="product-price">{{product.price}}</span>
+                    </div>
+                </div>
+                <div class="product-action d-flex align-items-center">
+                    <div class="btn-group btn-group-sm so-btn-group" role="group">
+                        <button type="button" class="btn btn-secondary" [disabled]="product.qty==1"
+                            (click)="decreaseProductQty(product.id)">-</button>
+                        <span class="btn so-cart-quanity">{{product.qty}}</span>
+                        <button type="button" class="btn btn-secondary"
+                            (click)="increaseProductQty(product.id)">+</button>
+                    </div>
+                    <button class="delete-btn" (click)="deleteProduct(product.id)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                            <path
+                                d="M5.00008 16.1026C5.00008 17.0193 5.75008 17.7693 6.66675 17.7693H13.3334C14.2501 17.7693 15.0001 17.0193 15.0001 16.1026V6.10262H5.00008V16.1026ZM15.8334 3.60262H12.9167L12.0834 2.76929H7.91675L7.08342 3.60262H4.16675V5.26929H15.8334V3.60262Z"
+                                fill="#9D263B" />
+                        </svg>
+                    </button>
+                </div>
+            </li>
+        </ul>
+        <article class="order-summary">
+            <h2>Order Summary</h2>
+            <hr />
+            <div class="d-flex justify-content-between">
+                <span class="order-detail-title">Subtotal</span>
+                <span class="order-detail-val">${{orderSummary.subTotal}}</span>
+            </div>
+            <div class="d-flex justify-content-between  mt-3">
+                <span class="order-detail-title">Taxes</span>
+                <span class="order-detail-val">${{orderSummary.taxes}}</span>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between">
+                <span class="order-detail-title">Total</span>
+                <span class="order-detail-val">${{orderSummary.total}}</span>
+            </div>
+        </article>
+    </div>
+</section>

@@ -1,0 +1,23 @@
+.payment-header h1 {
+  font-size: 48px;
+  line-height: 1.2;
+  color: var(--green-400);
+}
+
+.payment-body {
+  max-width: 400px;
+}
+
+.payment-button {
+  width: 100%;
+}
+
+.order-summary h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.order-detail-title {
+  font-size: 16px;
+  font-weight: 600;
+}

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -13,18 +15,29 @@ export class ProductsListComponent implements OnInit {
   currentIndex = -1;
   name = '';
   showProductDetail: boolean = false;
+  isLoading: boolean = false;
+  isAuthorized: boolean = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.retrieveProducts();
+    this.authService.user.subscribe((user: User | null) => {
+      if (user) {
+        this.isAuthorized = user.isUserAdmin();
+      }
+    });
   }
 
   retrieveProducts(): void {
+    this.isLoading = true;
     this.productService.getAll().subscribe({
       next: (data) => {
         this.products = data;
-        console.log(data);
+        this.isLoading = false;
       },
       error: (e) => console.error(e),
     });
@@ -44,13 +57,11 @@ export class ProductsListComponent implements OnInit {
 
   toggleDetailedProductView() {
     this.showProductDetail = !this.showProductDetail;
-    console.log(this.showProductDetail);
   }
 
   removeAllProducts(): void {
     this.productService.deleteAll().subscribe({
       next: (res) => {
-        console.log(res);
         this.refreshList();
       },
       error: (e) => console.error(e),

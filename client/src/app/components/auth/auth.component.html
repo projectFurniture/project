@@ -1,0 +1,43 @@
+<section class="sign-up-container">
+    <app-toast data="{{errorMessage}}" *ngIf="errorMessage"></app-toast>
+    <picture class="hero-image">
+        <img src="assets/images/furniture-store.jpg" alt="image of furniture store" />
+    </picture>
+    <article class="hero-content">
+        <h1>{{isLoginPage ? 'Login': 'Sign Up'}} to Simply Organic</h1>
+        <form class="mt-4" #authForm="ngForm" (submit)="onSubmit(authForm)">
+            <div class="mb-2" *ngIf="!isLoginPage">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control mt-2" id="username" name="username" ngModel required
+                    minlength="3" #username="ngModel" />
+                <div class="invalid-feedback d-block" [ngClass]="{ 'invisible': username.valid || !username.touched}">
+                    Invalid username! Username must have minimum of 3 characters.
+                </div>
+            </div>
+            <div class="mb-2">
+                <label for="emailAddress" class="form-label">Email address</label>
+                <input type="email" class="form-control mt-2" id="emailAddress" name="email" ngModel required email
+                    #email="ngModel" />
+                <div class="invalid-feedback d-block" [ngClass]="{ 'invisible': email.valid || !email.touched}">
+                    Invalid email address
+                </div>
+            </div>
+            <div class="mb-2">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control mt-2" id="password" name="password" ngModel minlength="6"
+                    required #password="ngModel" />
+                <div class="invalid-feedback d-block" [ngClass]="{ 'invisible': password.valid || !password.touched}">
+                    {{isLoginPage ? 'Invalid password!': 'Invalid password! Must have a minimum of 6 charcters!'}}
+                </div>
+            </div>
+            <button class="btn-nav btn-nav-primary" [ngClass]="{'disabled': !authForm.valid}">{{isLoginPage ? ' Login':
+                'Sign Up' }}</button>
+            <p class="sign-up-info mt-2" *ngIf="!isLoginPage">Already have an account? <a routerLink="/login">Sign
+                    In</a>
+            </p>
+            <p class="sign-up-info mt-2" *ngIf="isLoginPage">Don't have an account? <a routerLink="/sign-up">Sign
+                    Up</a>
+            </p>
+        </form>
+    </article>
+</section>

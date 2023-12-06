@@ -140,7 +140,7 @@ button {
 }
 
 :root {
-  --green-100: #3d931f;
+  --green-100: #439b24;
   --green-400: #0c4302;
   --white: #ffffff;
   --black: #000000;
@@ -165,7 +165,22 @@ button {
   box-shadow: 0 0 2px 0 var(--green-400);
 }
 
-.btn-nav-primary.disabled {
+.btn-nav-primary:hover {
+  color: var(--green-400) !important;
+  background-color: var(--white);
+  border: 1px solid var(--green-400);
+  box-shadow: 0 0 2px 0 var(--green-400);
+}
+
+.btn-nav-primary:active {
+  color: var(--white) !important;
+  background-color: var(--green-400);
+  border: 1px solid var(--green-400);
+  box-shadow: 0 0 2px 0 var(--green-400);
+}
+
+.btn-nav-primary.disabled,
+.btn-nav-primary:disabled {
   opacity: 0.3;
   pointer-events: none;
 }
@@ -177,9 +192,15 @@ button {
   box-shadow: 0 0 2px 0 var(--white);
 }
 
-.btn-nav:hover {
-  /* color: var(--green-400);
-  background-color: var(--white); */
+.btn-nav-secondary:hover {
   box-shadow: none;
-  text-decoration: none;
+}
+
+.btn-nav-outline {
+  border: 1px solid var(--green-400);
+  color: var(--green-400) !important;
+}
+
+.btn-nav-outline:hover {
+  box-shadow: 0 0 2px 0 var(--green-400);
 }

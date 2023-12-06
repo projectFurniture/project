@@ -1,17 +1,32 @@
 module.exports = (mongoose) => {
+
   var schema = mongoose.Schema({
     user_id: String,
     order_status: String,
-    order_items: [
+    order_delivery_address: String,
+    order_date: Date,
+    product_list: [
       {
-        product_id: String,
+        id: String,
+        name: String,
+        description: String,
+        price: Number,
+        image: String,
+        published: Boolean,
         qty: Number,
-      },
+        category: String
+      }
     ],
     payment: {
-      payment_mode: String,
-      payment_date: Date,
-    },
+      mode: String,
+      details: {
+        name: String,
+        email: String,
+        cardNumber: Number,
+        expiryDate: String,
+        cvv: Number,
+      },
+    }
   });
 
   schema.method("toJSON", function () {

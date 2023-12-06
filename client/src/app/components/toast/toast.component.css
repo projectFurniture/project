@@ -1,0 +1,11 @@
+.so-toast {
+  position: fixed;
+  top: 100px;
+  max-width: 440px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+  background-color: var(--green-400);
+  z-index: 100;
+  color: var(--white);
+}

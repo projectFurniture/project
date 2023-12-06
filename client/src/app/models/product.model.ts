@@ -3,7 +3,7 @@ export class Product {
   image?: string;
   name?: string;
   description?: string;
-  price?: Number | undefined;
+  price?: number = 0.0;
   category?: string;
-  qty?: Number | undefined;
+  qty?: number = 0;
 }

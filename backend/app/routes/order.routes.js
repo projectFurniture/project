@@ -10,7 +10,8 @@ module.exports = (app) => {
   router.get("/", orders.findAll);
 
   // Retrieve a single Order with id
-  router.get("/:id", orders.findOne);
+  // router.get("/:id", orders.findOne);
+  router.get("/:id", orders.findByUserId);
 
   // Update an Order with id
   router.put("/:id", orders.update);

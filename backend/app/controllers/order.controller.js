@@ -1,26 +1,82 @@
 const db = require("../models");
 const Order = db.orders;
 
+const jwt = require('jsonwebtoken');
+const secretKey = "grocery-store-key";
+
+
 // Create and Save a new Order
 exports.create = (req, res) => {
+
+  const accessToken = req.headers['x-access-token'];
+
+  let userId;
+
+  try {
+    const decodedToken = jwt.verify(accessToken, secretKey);
+    userId = decodedToken.id;
+  } catch (error) {
+    return res.status(401).send({
+      message: 'Access token is invalid or expired.',
+    });
+  }
+
   // Validate request
-  if (!req.body.user_id || !req.body.order_status || !req.body.order_items || !req.body.payment) {
+  if (
+    !req.body.order_status ||
+    !req.body.order_delivery_address ||
+    !req.body.product_list ||
+    !req.body.payment ||
+    !Array.isArray(req.body.product_list) ||
+    req.body.product_list.length === 0 ||
+    !req.body.product_list.every(
+      (product) =>
+        product.id &&
+        product.name &&
+        product.description &&
+        product.price &&
+        product.image &&
+        product.published !== undefined &&
+        product.qty !== undefined &&
+        product.category
+    )
+  ) {
     res.status(400).send({
       message: "All fields are required!",
     });
     return;
   }
 
+  if (
+    req.body.payment.mode === "card" &&
+    (!req.body.payment.details.name ||
+      !req.body.payment.details.email ||
+      !req.body.payment.details.cardNumber ||
+      !req.body.payment.details.expiryDate ||
+      !req.body.payment.details.cvv)
+  ) {
+    res.status(400).send({
+      message:
+        "Invalid payment details. For card payment, all details are required.",
+    });
+    return;
+  }
+
+  const currentDate = new Date();
+
   // Create an Order
   const order = new Order({
-    user_id: req.body.user_id,
+    user_id: userId,
     order_status: req.body.order_status,
-    order_items: req.body.order_items,
+    order_delivery_address: req.body.order_delivery_address,
+    order_date: currentDate,
+    product_list: req.body.product_list,
     payment: req.body.payment,
   });
 
   // Save Order in the database
-  order.save()
+  order
+    .save()
     .then((data) => {
       res.send(data);
     })
@@ -123,7 +179,29 @@ exports.deleteAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while removing all orders.",
+        message:
+          err.message || "Some error occurred while removing all orders.",
+      });
+    });
+};
+
+// Get orders based on users.
+exports.findByUserId = (req, res) => {
+  const userId = req.params.id;
+
+  Order.find({ user_id: userId })
+    .then((data) => {
+      if (data.length === 0) {
+        res.status(404).send({
+          message: `No orders found for User ID ${userId}.`,
+        });
+      } else {
+        res.send(data);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: `Error retrieving orders for User ID ${userId}.`,
       });
     });
 };

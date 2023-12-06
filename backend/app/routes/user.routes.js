@@ -1,10 +1,21 @@
-module.exports = (app) => {
-  const users = require("../controllers/user.controller.js");
+const { authJwt } = require("../middlewares");
 
-  var router = require("express").Router();
+const users = require("../controllers/user.controller.js");
+
+module.exports = (app) => {
+
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
+    next();
+  });
+
+  const router = require("express").Router();
 
   // Create a new User
   router.post("/", users.create);
+
+  // // Route to make a user an admin (requires admin privileges)
+  // router.put("/admin/:id", [authJwt.verifyToken, authJwt.isAdmin], users.makeAdmin);
 
   // Retrieve all Users
   router.get("/", users.findAll);
@@ -20,6 +31,18 @@ module.exports = (app) => {
 
   // Delete all Users
   router.delete("/", users.deleteAll);
+
+  router.get(
+    "/customer",
+    [authJwt.verifyToken, authJwt.isModerator],
+    users.customerDashboard
+  );
+
+  router.get(
+    "/admin",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    users.adminDashboard
+  );
 
   app.use("/api/users", router);
 };

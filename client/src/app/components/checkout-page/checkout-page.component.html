@@ -1,0 +1,83 @@
+<section class="container payment-page mb-5">
+    <header class="d-flex mt-5 payment-header">
+        <h1>Your Payment Details</h1>
+    </header>
+    <div class="payment-body">
+        <form class="mt-4 payment-form" #paymentForm="ngForm" (submit)="onSubmit(paymentForm)">
+            <div class="mb-4">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="paymentMode" id="onlinePayment" value="1"
+                        [(ngModel)]="paymentMode">
+                    <label class="form-check-label" for="onlinePayment">Online</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="paymentMode" id="cashPayment" value="0"
+                        [(ngModel)]="paymentMode">
+                    <label class="form-check-label" for="cashPayment">Cash On Delivery</label>
+                </div>
+            </div>
+
+            <div class="mb-2" *ngIf="paymentMode=='1'">
+                <label for="billingName" class="form-label">Billing Name</label>
+                <input type="text" class="form-control mt-2" id="billingName" name="name" ngModel required minlength="3"
+                    #name="ngModel" />
+                <div class="invalid-feedback d-block" [ngClass]="{ 'invisible': name.valid || !name.touched}">
+                    Username must have minimum of 3 characters.
+                </div>
+            </div>
+            <div class="mb-2" *ngIf="paymentMode=='1'">
+                <label for="emailAddress" class="form-label">Email address</label>
+                <input type="email" class="form-control mt-2" id="emailAddress" name="email" ngModel required email
+                    #email="ngModel" />
+                <div class="invalid-feedback d-block" [ngClass]="{ 'invisible': email.valid || !email.touched}">
+                    Invalid email address
+                </div>
+            </div>
+            <div class="mb-2" *ngIf="paymentMode=='1'">
+                <label for="cardNumber" class="form-label">Credit/Debit Card Number</label>
+                <input type="text" class="form-control mt-2" id="cardNumber" name="cardNumber" ngModel required
+                    #cardNumber="ngModel" minlength="10" maxlength="10" pattern="[0-9]+" />
+                <div class="invalid-feedback d-block"
+                    [ngClass]="{ 'invisible': cardNumber.valid || !cardNumber.touched}">
+                    Credit/Debit Card Number should contain only 10 digits
+                </div>
+            </div>
+            <div class="mb-2" *ngIf="paymentMode=='1'">
+                <label for="expiryDate" class="form-label">Expiry Date</label>
+                <input type="date" class="form-control mt-2" id="expiryDate" name="expiryDate" ngModel required
+                    #expiryDate="ngModel" />
+                <div class="invalid-feedback d-block"
+                    [ngClass]="{ 'invisible': expiryDate.valid || !expiryDate.touched}">
+                    Invalid expiry date
+                </div>
+            </div>
+            <div class="mb-2" *ngIf="paymentMode=='1'">
+                <label for="cvvNumber" class="form-label">CVV Number</label>
+                <input type="text" class="form-control mt-2" id="cvvNumber" name="cvvNumber" ngModel required
+                    #cvvNumber="ngModel" minlength="3" maxlength="3" pattern="[0-9]+" />
+                <div class="invalid-feedback d-block" [ngClass]="{ 'invisible': cvvNumber.valid || !cvvNumber.touched}">
+                    CVV Number cannot be empty! It should have 3 digits!
+                </div>
+            </div>
+            <div class="mb-2">
+                <label for="deliveryAddress" class="form-label">Delivery Address</label>
+                <textarea class="form-control mt-2" id="deliveryAddress" rows="2" name="deliveryAddress"
+                    #deliveryAddress="ngModel" ngModel required></textarea>
+                <div class="invalid-feedback d-block"
+                    [ngClass]="{ 'invisible': deliveryAddress.valid || !deliveryAddress.touched}">
+                    Delivery Address cannot be empty
+                </div>
+            </div>
+            <article class="order-summary">
+                <h2>Order Summary</h2>
+                <hr />
+                <div class="d-flex justify-content-between">
+                    <span class="order-detail-title">Total</span>
+                    <span class="order-detail-val">${{orderSummary.total}}</span>
+                </div>
+            </article>
+            <button class="btn-nav btn-nav-primary mt-5 payment-button" type="submit">Make payment</button>
+        </form>
+    </div>
+
+</section>
